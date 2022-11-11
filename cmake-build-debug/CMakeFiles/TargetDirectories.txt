@@ -1,0 +1,3 @@
+C:/Users/KCF/CLionProjects/Kontoverwaltung/cmake-build-debug/CMakeFiles/Kontoverwaltung.dir
+C:/Users/KCF/CLionProjects/Kontoverwaltung/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/KCF/CLionProjects/Kontoverwaltung/cmake-build-debug/CMakeFiles/rebuild_cache.dir
