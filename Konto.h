@@ -15,7 +15,7 @@ public:
     std::string password = "";
     int balance = 0;
 
-    void transfairfunds(int,std::vector<Konto>&);
+    void transfairfunds(int,int,std::vector<Konto>&);
 
     bool loginCheck();
 
@@ -27,8 +27,11 @@ public:
 
     Konto(std::string,std::string);
 
-    void logaction(int);
 
+    static void logaction(char, int, std::vector<Konto>&);
+    void logaction(char,int,int,std::vector<Konto>&);
+    void logaction(char, int, int, int, std::vector<Konto>);
+    void logaction();
 
 };
 

@@ -6,7 +6,7 @@
 
 
 
-
+char selection;
 int main() {
     void addAccount(std::vector<Konto> &);
 
@@ -15,7 +15,8 @@ int main() {
     int iTemp;
     int withdrawamount;
     int depositamount;
-    char selection;
+    int transfacc = 0;
+
     std::vector<Konto> konten;
     std::vector<Konto> &refkonten = konten;
 
@@ -62,6 +63,7 @@ int main() {
 
                         std::cout << "Please input the amount u want to withdraw\n>";
                         std::cin >> withdrawamount;
+                        konten.at(iTemp).logaction(selection, withdrawamount, iTemp,refkonten);
                         konten.at(iTemp).withdraw(withdrawamount);
                     }
                     break;
@@ -72,19 +74,19 @@ int main() {
                     std::cin >> iTemp;
                     if (konten.at(iTemp).loginCheck() == true) {
 
+
+                        std::cout << "Please input the amount u want to deposit\n>";
+                        std::cin >> depositamount;
+                        konten.at(iTemp).logaction(selection, depositamount, iTemp,refkonten);
+                        konten.at(iTemp).deposit(depositamount);
                     }
-
-                    std::cout << "Please input the amount u want to deposit\n>";
-                    std::cin >> depositamount;
-                    konten.at(iTemp).deposit(depositamount);
-
                     break;
 
                 case deactivate :
                     std::cout << "Please input the ID of the account u want to deactivate" << std::endl;
                     std::cin >> iTemp;
                     if (konten.at(iTemp).loginCheck() == true) {
-
+                        konten.at(iTemp).logaction(selection,iTemp,refkonten);
                         konten.at(iTemp).deactivateAccount();
 
                     }
@@ -98,18 +100,24 @@ int main() {
                     }
                     std::cout << "Please input the amount u want to transfer\n>";
                     std::cin >> depositamount;
-                    konten.at(iTemp).transfairfunds(depositamount, refkonten);
+
+
+                    std::cout << "Input the ID of the account u want to transfer to\n>";
+                    std::cin >> transfacc;
+
+                    konten.at(iTemp).logaction(selection,iTemp,depositamount,transfacc,refkonten);
+                    konten.at(iTemp).transfairfunds(depositamount,transfacc,refkonten);
 
                     break;
 
-                case shutdown :
+                case shutdown:
 
                     std::cout << "Are you shure u want to shut down the program [Y/N]\n>";
                     std::cin >> sTemp;
                     if (sTemp == "Y" || sTemp == "y") {
                         std::cout << "Program is shutting down" <<
                                   std::endl;
-
+                        konten.at(iTemp).logaction();
                         running = false;
                     }
 
@@ -151,6 +159,7 @@ int main() {
         std::cin >> temppasw;
         konten.push_back(createAccount(temp,temppasw));
         std::cout<<"the account was created with the ID: "<<pos<<std::endl<<std::endl;
+        Konto::logaction(selection,pos,konten);
         pos++;
 
 

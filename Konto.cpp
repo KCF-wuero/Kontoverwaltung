@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <fstream>
 #include "Konto.h"
 
 
@@ -81,11 +82,9 @@ bool Konto::loginCheck() {
 
    }
 
-void Konto::transfairfunds(int transferamount, std::vector<Konto> &konten) {
+void Konto::transfairfunds(int transferamount,int transfacc, std::vector<Konto> &konten) {
 
-    int transfacc = 0;
-    std::cout << "Input the ID of the account u want to transfer to\n>";
-    std::cin >> transfacc;
+
 
     if (transferamount < balance && activ && transferamount > 0) {
 
@@ -101,7 +100,7 @@ void Konto::transfairfunds(int transferamount, std::vector<Konto> &konten) {
 void Konto::deactivateAccount()
 {
             std::string sTemp;
-std::cout <<"Are you shure you want to deaktivate your account[Y/N]";
+std::cout <<"Are you shure you want to deaktivate your account[Y/N]\n>";
 std::cin >> sTemp;
 if(sTemp == "y"||sTemp == "Y")
 {
@@ -117,46 +116,80 @@ else
 }
 
 
-void Konto::logaction(int selection)
+void Konto::logaction(char selection,int kontoID,std::vector<Konto>& Konto)
 {
- std::fstream Log;
- Log.open("Log",iso::out);
- if(!Log) {
-     std::cout << "Error while creating the file";
- }
- else{
+    std::fstream Log;
+    Log.open("Log.txt",std::fstream::app);
+    std::cout << "Error while creating the file";
+
+
      switch (selection) {
 
-         case 1 :
-
+         case '1' :
+             Log << "Account has been created by " << Konto.at(kontoID).kontoInhaber << std::endl;
          break;
 
-         case 2:
 
+         case '4':
+            Log<<"The account from "<<Konto.at(kontoID).kontoInhaber << " was deaktivated"<<std::endl;
              break;
 
-         case 3:
 
-             break;
 
-         case 4:
-
-             break;
-
-         case 5:
-
-             break;
-
-         case 6:
-
-             break
 
 
      }
- }
+
+
+}
+
+void Konto::logaction()
+{
+    std::fstream Log;
+    Log.open("Log.txt",std::fstream::app);
+    std::cout << "Error while creating the file";
+
+    Log << "The programm has been shut down "<<std::endl;
+
+}
+
+void Konto::logaction(char selection,int amount,int kontoID,std::vector<Konto>& Konto)
+{
+
+    std::fstream Log;
+    Log.open("Log.txt",std::fstream::app);
+    std::cout << "Error while creating the file";
+switch(selection)
+{
+    case '2':
+        Log <<Konto.at(kontoID).kontoInhaber << " withdrew " << amount <<" from his account"<<std::endl;
+        break;
+
+
+    case '3':
+        Log << Konto.at(kontoID).kontoInhaber <<" has deposited "<< amount <<" to his account"<<std::endl;
+        break;
 
 
 
+}
+
+
+
+
+}
+
+void Konto::logaction(char selection, int kontoID, int amount, int transfairtarget, std::vector<Konto> Konto) {
+
+    std::fstream Log;
+    Log.open("Log.txt",std::fstream::app);
+    std::cout << "Error while creating the file";
+
+    if(selection == '5')
+    {
+        Log << Konto.at(kontoID).kontoInhaber <<" tranfeired "<< amount << " to " <<Konto.at(transfairtarget).kontoInhaber<< std::endl;
+
+    }
 }
 
 
