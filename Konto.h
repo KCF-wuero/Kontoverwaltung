@@ -25,7 +25,10 @@ public:
 
     void withdraw(int);
 
+
     Konto(std::string,std::string);
+
+    ~Konto();
 
 
     static void logaction(char, int, std::vector<Konto>&);

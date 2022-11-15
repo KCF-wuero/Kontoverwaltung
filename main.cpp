@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <cstdlib>
 #include "Konto.h"
 
 
@@ -9,6 +10,7 @@
 char selection;
 int main() {
     void addAccount(std::vector<Konto> &);
+    void addAccount(std::string, std::vector<Konto> &);
 
     bool running = true;
     std::string sTemp;
@@ -22,7 +24,7 @@ int main() {
 
     enum menu {
         create = '1', withdraw = '2', deposit = '3', deactivate = '4', transfer = '5', shutdown = '6',
-        test = '9'
+        destroyaccount = '8' , test = '9'
     };
 
     while (running) {
@@ -122,8 +124,31 @@ int main() {
                     }
 
                     break;
+                case destroyaccount:
+                    std::cout<< "Please input the ID of the account u want to destroy completely\n>";
+                    std::cin>>iTemp;
+                    konten.at(iTemp).loginCheck();
+                    konten.at(iTemp).logaction(selection,0,iTemp,refkonten);
+                    konten.at(iTemp).~Konto();
+
+                    break;
 
                 case test:
+                    std::cout << "now starting test"<<std::endl;
+                    for (int i = 0; i < 10; ++i) {
+                        addAccount(std::to_string(i),refkonten);
+                        konten.at(i).deposit(1000000);
+                    }
+                    for (int i = 0; i < 50; ++i)
+                    {
+                    int account1 = rand() % 10;
+                    int account2 = rand() % 10;
+                    int transfam = rand() % 1000;
+                    konten.at(account1).logaction('5',account1,transfam,account2,refkonten );
+                    konten.at(account1).transfairfunds(transfam,account2,refkonten);
+
+                    }
+                    std::cout <<"the test has finished"<<std::endl;
 
 
                     break;
@@ -159,9 +184,19 @@ int main() {
         std::cin >> temppasw;
         konten.push_back(createAccount(temp,temppasw));
         std::cout<<"the account was created with the ID: "<<pos<<std::endl<<std::endl;
-        Konto::logaction(selection,pos,konten);
+        konten.at(pos).logaction(selection,pos,konten);
         pos++;
 
+
+    }
+
+    void addAccount(std::string temp,std::vector<Konto> &konten)
+    {
+    static int pos = 0;
+    std::string temppasw = " ";
+        konten.push_back(createAccount(temp,temppasw));
+        konten.at(pos).logaction('1',pos,konten);
+        pos++;
 
     }
 
