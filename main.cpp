@@ -106,17 +106,17 @@ int main() {
                     std::cin >> iTemp;
                     if (konten.at(iTemp).loginCheck() == true) {
 
+
+                        std::cout << "Please input the amount u want to transfer\n>";
+                        std::cin >> depositamount;
+
+
+                        std::cout << "Input the ID of the account u want to transfer to\n>";
+                        std::cin >> transfacc;
+
+                        konten.at(iTemp).logaction(selection, iTemp, depositamount, transfacc, refkonten);
+                        konten.at(iTemp).transfairfunds(depositamount, transfacc, refkonten);
                     }
-                    std::cout << "Please input the amount u want to transfer\n>";
-                    std::cin >> depositamount;
-
-
-                    std::cout << "Input the ID of the account u want to transfer to\n>";
-                    std::cin >> transfacc;
-
-                    konten.at(iTemp).logaction(selection,iTemp,depositamount,transfacc,refkonten);
-                    konten.at(iTemp).transfairfunds(depositamount,transfacc,refkonten);
-
                     break;
 
                 case shutdown:
@@ -142,21 +142,21 @@ int main() {
 
                 case test:
                     std::cout << "now starting test"<<std::endl;
-                    for (int i = 0; i < 10; ++i) {
+                    for (int i = 0; i < 10; i++) {
                         addAccount(std::to_string(i),refkonten);
                         konten.at(i).deposit(1000000);
                     }
-                    for (int i = 0; i < 50; ++i)
+                    for (int i = 0; i < 50; i++)
                     {
                     int account1 = rand() % 10;
                     int account2 = rand() % 10;
-                    int transfam = rand() % 1000;
+                    int transfam = rand() % 10000;
                     konten.at(account1).logaction('5',account1,transfam,account2,refkonten );
                     konten.at(account1).transfairfunds(transfam,account2,refkonten);
 
                     }
 
-                    for (int i = 0; i < 10; ++i) {
+                    for (int i = 0; i < 10; i++) {
                         std:: cout << "balance is " << konten.at(i).balance<<" of account "<<konten.at(i).kontoInhaber<<std::endl;
                     }
                     std::cout <<"the test has finished"<<std::endl;
