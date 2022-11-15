@@ -211,6 +211,3 @@ void Konto::logaction(char selection, int kontoID, int amount, int transfairtarg
 
 
 Konto::~Konto(){};
-
-
-

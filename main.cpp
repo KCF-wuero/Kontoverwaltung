@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <fstream>
+#include <ctime>
+#include <chrono>
 #include <cstdlib>
 #include "Konto.h"
 
@@ -9,6 +10,7 @@
 
 char selection;
 int main() {
+
     void addAccount(std::vector<Konto> &);
     void addAccount(std::string, std::vector<Konto> &);
 
@@ -18,9 +20,14 @@ int main() {
     int withdrawamount;
     int depositamount;
     int transfacc = 0;
-
+    srand(time(NULL));
     std::vector<Konto> konten;
     std::vector<Konto> &refkonten = konten;
+
+
+
+
+
 
     enum menu {
         create = '1', withdraw = '2', deposit = '3', deactivate = '4', transfer = '5', shutdown = '6',
@@ -147,6 +154,10 @@ int main() {
                     konten.at(account1).logaction('5',account1,transfam,account2,refkonten );
                     konten.at(account1).transfairfunds(transfam,account2,refkonten);
 
+                    }
+
+                    for (int i = 0; i < 10; ++i) {
+                        std:: cout << "balance is " << konten.at(i).balance<<" of account "<<konten.at(i).kontoInhaber<<std::endl;
                     }
                     std::cout <<"the test has finished"<<std::endl;
 

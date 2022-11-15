@@ -1,8 +1,11 @@
 //
 // Created by KCF on 08/11/2022.
 //
+#include <ctime>
 #include <string>
 #include <vector>
+#include <ratio>
+#include <chrono>
 
 #ifndef KONTOVERWALTUNG_KONTO_H
 #define KONTOVERWALTUNG_KONTO_H
@@ -10,6 +13,8 @@
 
 class Konto {
 public:
+
+    
     bool activ = true;
     std::string kontoInhaber = " ";
     std::string password = "";
